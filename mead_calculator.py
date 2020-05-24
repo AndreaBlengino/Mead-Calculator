@@ -5,24 +5,7 @@ from dash.dependencies import Input, Output
 import plotly.graph_objs as go
 import numpy as np
 from input_settings import *
-
-
-
-
-
-
-
-
-
-blue = '#6683f3'
-green = '#57bdc9'
-yellow = '#e5e467'
-orange = '#ff9266'
-red = '#de7677'
-grey = '#e0e1f5'
-black = '#212121'
-fontsize = 18
-fontfamily = 'Tahoma'
+from graphic_settings import *
 
 
 
