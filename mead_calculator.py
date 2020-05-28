@@ -14,7 +14,8 @@ app = dash.Dash()
 
 app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
                                         style = dict(fontFamily = fontfamily,
-                                                     fontSize = fontsize)),
+                                                     fontSize = fontsize,
+                                                     float = 'left')),
 
                                  html.Div([dcc.Slider(id = 'gravity_slider',
                                                       min = m_gravity_min,
@@ -23,11 +24,14 @@ app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
                                                       value = m_gravity_0,
                                                       marks = {n: label for n, label in zip(np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2),
                                                                                             [str(x) for x in np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2).tolist()])})],
-                                          style = dict(width = '50%')),
+                                          style = dict(width = '50%',
+                                                       float = 'left',
+                                                       margin = '20px 10px 0px 10px')),
 
                                  html.P(id = 'gravity_value',
                                         style = dict(fontFamily = fontfamily,
-                                                     fontSize = fontsize)),
+                                                     fontSize = fontsize,
+                                                     float = 'left')),
 
                                  dcc.RadioItems(id = 'units_button',
                                                 options = [dict(label = 'Metric', value = 'metric'),
@@ -36,7 +40,7 @@ app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
                                                 style = dict(fontFamily = fontfamily,
                                                              fontSize = fontsize))],
 
-                                style = dict(flex_direction = 'row-reverse')),
+                                style = dict(margin = '0px 0px 80px 0px')),
 
                        html.Div(dcc.Graph(id = 'main_graph',
                                           figure = dict(data = [],
