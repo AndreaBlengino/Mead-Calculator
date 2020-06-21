@@ -13,9 +13,9 @@ from graphic_settings import *
 app = dash.Dash()
 
 app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
-                                        style = dict(fontFamily = fontfamily,
-                                                     fontSize = fontsize,
-                                                     float = 'left')),
+                                        style = {'fontFamily': fontfamily,
+                                                 'fontSize': fontsize,
+                                                 'float': 'left'}),
 
                                  html.Div([dcc.Slider(id = 'gravity_slider',
                                                       min = m_gravity_min,
@@ -24,28 +24,30 @@ app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
                                                       value = m_gravity_0,
                                                       marks = {n: label for n, label in zip(np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2),
                                                                                             [str(x) for x in np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2).tolist()])})],
-                                          style = dict(width = '50%',
-                                                       float = 'left',
-                                                       margin = '20px 10px 0px 10px')),
+                                          style = {'width': '50%',
+                                                   'float': 'left',
+                                                   'margin': '20px 10px 0px 10px'}),
 
                                  html.P(id = 'gravity_value',
-                                        style = dict(fontFamily = fontfamily,
-                                                     fontSize = fontsize,
-                                                     float = 'left')),
+                                        style = {'fontFamily': fontfamily,
+                                                 'fontSize': fontsize,
+                                                 'float': 'left'}),
 
                                  dcc.RadioItems(id = 'units_button',
-                                                options = [dict(label = 'Metric', value = 'metric'),
-                                                           dict(label = 'US', value = 'US')],
+                                                options = [{'label': 'Metric',
+                                                            'value': 'metric'},
+                                                           {'label': 'US',
+                                                            'value': 'US'}],
                                                 value = 'metric',
-                                                style = dict(fontFamily = fontfamily,
-                                                             fontSize = fontsize))],
+                                                style = {'fontFamily': fontfamily,
+                                                         'fontSize': fontsize})],
 
-                                style = dict(margin = '0px 0px 80px 0px')),
+                                style = {'margin': '0px 0px 80px 0px'}),
 
                        html.Div(dcc.Graph(id = 'main_graph',
-                                          figure = dict(data = [],
-                                                        layout = go.Layout(plot_bgcolor = black)),
-                                          style = dict(height = 1000)))])
+                                          figure = {'data': [],
+                                                    'layout': go.Layout(plot_bgcolor = black)},
+                                          style = {'height': 1000}))])
 
 
 
@@ -115,22 +117,24 @@ def update_graph(density_value, unit):
                        showscale = False,
                        showlegend = True,
                        colorscale = [[0, color], [1, color]],
-                       ncontours = int(2 * (z_max - z_min) / z_step),
-                       contours = dict(showlabels = True,
-                                       labelformat = format,
-                                       labelfont = dict(size = fontsize,
-                                                        family = fontfamily)))
+                       ncontours = int(2*(z_max - z_min)/z_step),
+                       contours = {'showlabels': True,
+                                   'labelformat': fmt,
+                                   'labelfont': {'size': fontsize,
+                                                 'family': fontfamily}})
 
-            for z, label, unit, hoverunit, z_min, z_max, z_step, color, format, hoverformat in zip([QQ, SG, PABV],
-                                                                                                   [q_label, sg_label, pabv_label],
-                                                                                                   [q_unit, sg_unit, '%'],
-                                                                                                   [q_unit, sg_unit, pabv_unit],
-                                                                                                   [q_min, sg_min, pabv_min],
-                                                                                                   [q_max, sg_max, pabv_max],
-                                                                                                   [q_step, sg_step, pabv_step],
-                                                                                                   [yellow, blue, orange],
-                                                                                                   [q_format, sg_format, pabv_format],
-                                                                                                   [q_hoverformat, sg_hoverformat, pabv_hoverformat])]
+            for z, label, unit, hoverunit, z_min, z_max, z_step, color, fmt, hoverformat in
+
+            zip([QQ, SG, PABV],
+                [q_label, sg_label, pabv_label],
+                [q_unit, sg_unit, '%'],
+                [q_unit, sg_unit, pabv_unit],
+                [q_min, sg_min, pabv_min],
+                [q_max, sg_max, pabv_max],
+                [q_step, sg_step, pabv_step],
+                [yellow, blue, orange],
+                [q_format, sg_format, pabv_format],
+                [q_hoverformat, sg_hoverformat, pabv_hoverformat])]
 
     layout = go.Layout(plot_bgcolor = black,
                        hovermode = 'x', # you can try using 'x' or 'x unified'
@@ -140,29 +144,29 @@ def update_graph(density_value, unit):
 
     fig.update_xaxes(title_text = f'Water\'s quantity ({volume_unit})',
                      linewidth = 1,
-                     nticks = int(2 * (a_max - a_min) / a_step),
+                     nticks = int(2*(a_max - a_min)/a_step),
                      gridwidth = 0.5,
                      gridcolor = grey,
-                     tickfont = dict(size = fontsize,
-                                     family = fontfamily),
-                     titlefont = dict(size = fontsize,
-                                      family = fontfamily))
+                     tickfont = {'size': fontsize,
+                                 'family': fontfamily},
+                     titlefont = {'size': fontsize,
+                                  'family': fontfamily})
 
     fig.update_yaxes(title_text = f'Honey\'s quantity ({mass_unit})',
                      linewidth = 1,
-                     nticks = int(2 * (m_max - m_min) / m_step),
+                     nticks = int(2*(m_max - m_min)/m_step),
                      gridwidth = 0.5,
                      gridcolor = grey,
-                     tickfont = dict(size = fontsize,
-                                     family = fontfamily),
-                     titlefont = dict(size = fontsize,
-                                      family = fontfamily))
+                     tickfont = {'size': fontsize,
+                                 'family': fontfamily},
+                     titlefont = {'size': fontsize,
+                                  'family': fontfamily})
 
-    fig.update_layout(legend = dict(itemsizing = 'constant',
-                                    font = dict(size = fontsize,
-                                                family = fontfamily)),
-                      hoverlabel = dict(font_size = fontsize,
-                                        font_family = fontfamily))
+    fig.update_layout(legend = {'itemsizing': 'constant',
+                                'font': {'size': fontsize,
+                                         'family': fontfamily}},
+                      hoverlabel = {'font_size': fontsize,
+                                    'font_family': fontfamily})
 
     return fig
 
