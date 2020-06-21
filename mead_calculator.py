@@ -7,47 +7,53 @@ import numpy as np
 from input_settings import *
 from graphic_settings import *
 
-
-
+slider_range = np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2)
+slider_marks = {n: label for n, label in zip(slider_range,
+                                             [str(x) for x in slider_range.tolist()])}
 
 app = dash.Dash()
 
-app.layout = html.Div([html.Div([html.P('Honey\'s gravity',
-                                        style = {'fontFamily': fontfamily,
-                                                 'fontSize': fontsize,
-                                                 'float': 'left'}),
+app.layout = html.Div(id = 'general_div',
+                      children = [html.Div(id = 'options_div',
+                                           children = [html.P(id = 'honey_label',
+                                                              children = 'Honey\'s gravity',
+                                                              style = {'fontFamily': fontfamily,
+                                                                       'fontSize': fontsize,
+                                                                       'float': 'left'}),
 
-                                 html.Div([dcc.Slider(id = 'gravity_slider',
-                                                      min = m_gravity_min,
-                                                      max = m_gravity_max,
-                                                      step = m_gravity_step,
-                                                      value = m_gravity_0,
-                                                      marks = {n: label for n, label in zip(np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2),
-                                                                                            [str(x) for x in np.round(np.arange(m_gravity_min, m_gravity_max + m_gravity_step_label, m_gravity_step_label), 2).tolist()])})],
-                                          style = {'width': '50%',
-                                                   'float': 'left',
-                                                   'margin': '20px 10px 0px 10px'}),
+                                                       html.Div(id = 'slider_bar_div',
+                                                                children = dcc.Slider(id = 'gravity_slider',
+                                                                                      min = m_gravity_min,
+                                                                                      max = m_gravity_max,
+                                                                                      step = m_gravity_step,
+                                                                                      value = m_gravity_0,
+                                                                                      marks = slider_marks),
+                                                                style = {'width': '50%',
+                                                                         'float': 'left',
+                                                                         'margin': '20px 10px 0px 10px'}),
 
-                                 html.P(id = 'gravity_value',
-                                        style = {'fontFamily': fontfamily,
-                                                 'fontSize': fontsize,
-                                                 'float': 'left'}),
+                                                       html.P(id = 'gravity_value',
+                                                              children = [],
+                                                              style = {'fontFamily': fontfamily,
+                                                                       'fontSize': fontsize,
+                                                                       'float': 'left'}),
 
-                                 dcc.RadioItems(id = 'units_button',
-                                                options = [{'label': 'Metric',
-                                                            'value': 'metric'},
-                                                           {'label': 'US',
-                                                            'value': 'US'}],
-                                                value = 'metric',
-                                                style = {'fontFamily': fontfamily,
-                                                         'fontSize': fontsize})],
+                                                       dcc.RadioItems(id = 'units_button',
+                                                                      options = [{'label': 'Metric',
+                                                                                  'value': 'metric'},
+                                                                                 {'label': 'US',
+                                                                                  'value': 'US'}],
+                                                                      value = 'metric',
+                                                                      style = {'fontFamily': fontfamily,
+                                                                               'fontSize': fontsize})],
 
-                                style = {'margin': '0px 0px 80px 0px'}),
+                                           style = {'margin': '0px 0px 80px 0px'}),
 
-                       html.Div(dcc.Graph(id = 'main_graph',
-                                          figure = {'data': [],
-                                                    'layout': go.Layout(plot_bgcolor = black)},
-                                          style = {'height': 1000}))])
+                                  html.Div(id = 'graph_div',
+                                           children = dcc.Graph(id = 'main_graph',
+                                                                figure = {'data': [],
+                                                                          'layout': go.Layout(plot_bgcolor = black)},
+                                                                style = {'height': 1000}))])
 
 
 
