@@ -133,7 +133,8 @@ def update_graph(density_value, unit):
                                                                                                    [q_hoverformat, sg_hoverformat, pabv_hoverformat])]
 
     layout = go.Layout(plot_bgcolor = black,
-                       hovermode = 'x') # you can try using 'x' or 'x unified'
+                       hovermode = 'x', # you can try using 'x' or 'x unified'
+                       uirevision = 'value')
 
     fig = go.Figure(data = data, layout = layout)
 
